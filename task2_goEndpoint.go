@@ -2,13 +2,12 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
-	"log"
 	"math"
 	"net/http"
 	"strconv"
 )
 
+// Spot represents a location spot with ID, name, latitude, and longitude.
 type Spot struct {
 	ID        int     `json:"id"`
 	Name      string  `json:"name"`
@@ -25,12 +24,8 @@ var spots = []Spot{
 	{5, "Spot 5", 37.7739, -122.4312},
 }
 
-func main() {
-	http.HandleFunc("/spots", getSpotsInArea)
-	log.Fatal(http.ListenAndServe(":8080", nil))
-}
-
 func getSpotsInArea(w http.ResponseWriter, r *http.Request) {
+
 	latitudeStr := r.URL.Query().Get("latitude")
 	longitudeStr := r.URL.Query().Get("longitude")
 	radiusStr := r.URL.Query().Get("radius")
